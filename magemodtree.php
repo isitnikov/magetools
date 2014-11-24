@@ -52,6 +52,7 @@ class Magetools_ModulesTree extends Magetools_Modules_Abstract
             $str .= PHP_EOL;
             $str .= $moduleName . PHP_EOL;
             $str .= "Filename:\t" . $moduleConfig['filename'] . PHP_EOL;
+            $str .= "Code pool:\t" . $moduleConfig['codePool'] . PHP_EOL;
             $str .= "Active:\t\t" . ($moduleConfig['active']
                 ? $this->_getColoredValue('true', 'green')
                 : $this->_getColoredValue('false', 'red')) . PHP_EOL;

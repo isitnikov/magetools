@@ -37,6 +37,8 @@ abstract class Magetools_Abstract
         'white'        => '1;37'
     );
 
+    protected $_localXml;
+
     protected function _getOptions()
     {
         if (!$this->_options) {
@@ -48,7 +50,7 @@ abstract class Magetools_Abstract
         return $this->_options;
     }
 
-    protected function _getOpt($longOption)
+    protected function _getOpt($longOption, $default = null)
     {
         $options = $this->_getOptions();
 
@@ -61,7 +63,7 @@ abstract class Magetools_Abstract
             return $options[$mappedOption] === false ? true : $options[$mappedOption];
         }
 
-        return null;
+        return $default;
     }
 
     protected function _validate()
@@ -140,5 +142,35 @@ USAGE;
     protected function _getColoredValue($value, $color = 'white')
     {
         return isset($this->_colors[$color]) ? ("\033[" . $this->_colors[$color] . "m" . $value . "\033[0m") : $value;
+    }
+
+    /**
+     * @param $path
+     * @param bool $throwException
+     * @return bool|SimpleXMLElement
+     * @throws Exception
+     */
+    protected function _getLocalXml()
+    {
+        if (is_null($this->_localXml)) {
+            $path = $this->_getMageDir('app/etc') . DS . 'local.xml';
+
+            if (!file_exists($path)) {
+                $this->_printMessage(sprintf('Cannot find current "%s" file', $path));
+            }
+
+            $this->_localXml = simplexml_load_file($path);
+            if (!$this->_localXml) {
+                $this->_printMessage(sprintf('Declaration XML of "%s" cannot be parsed', $path));
+                return false;
+            }
+
+            if (!$this->_localXml->xpath('/config/global/resources/default_setup')) {
+                $this->_printMessage(sprintf('Node /config/global/resources/default_setup in current "%s" is absent', $path));
+                return false;
+            }
+        }
+
+        return $this->_localXml;
     }
 }

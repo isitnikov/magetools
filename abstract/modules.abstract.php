@@ -49,7 +49,7 @@ abstract class Magetools_Modules_Abstract extends Magetools_Abstract {
                     $this->_dependencies[(string)$moduleName]['active'] = (string)$options->active === "true"
                         ? true : false;
                     $this->_dependencies[(string)$moduleName]['filename'] = basename($moduleDeclaration);
-                    $this->_dependencies[(string)$moduleName]['codePool'] = (string)$options->_;
+                    $this->_dependencies[(string)$moduleName]['codePool'] = (string)$options->codePool;
 
                     if (isset($options->depends) && count($options->depends->children())) {
                         foreach ($options->depends->children() as $_moduleName => $_v) {
@@ -198,8 +198,8 @@ abstract class Magetools_Modules_Abstract extends Magetools_Abstract {
             }
         }
 
-        if (!isset($declarationXml->modules)) {
-            $message = sprintf('Node modules in declaration XML "%s" is absent', $path);
+        if (!$declarationXml->xpath('/config/modules')) {
+            $message = sprintf('Node /config/modules in declaration XML "%s" is absent', $path);
             if ($throwException) {
                 throw new Exception($message);
             } else {

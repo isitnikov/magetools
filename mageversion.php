@@ -1,36 +1,31 @@
 #!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.php';
+require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'abstract.php';
 
-$options = getopt('h', array(
-    'help'
-));
+class Magetools_Version extends Magetools_Abstract
+{
+    protected $_scriptName = 'mageversion.php';
 
-try {
-    if (isset($options['h']) || isset($options['help'])) {
-        help();
+    public function run()
+    {
+        try {
+            $mageFile = $this->_getMageDir('app') . DS . 'Mage.php';
+
+            if (!file_exists($mageFile)) {
+                throw new Exception(sprintf('The main file of Magento "%s" is absent', $mageFile));
+            }
+
+            @require_once $mageFile;
+
+            $this->_printMessage(sprintf('%s %s', Mage::getEdition(), Mage::getVersion()));
+        } catch (Exception $e) {
+            $this->_printMessage($e->getMessage(), true);
+        }
     }
-
-    $magePath = getMagentoDir(getcwd());
-    chdir($magePath);
-
-    @require 'app/Mage.php';
-
-    if (class_exists('Mage')) {
-        printMessage(sprintf('%s %s', Mage::getEdition(), Mage::getVersion()));
-    } else {
-        throw new Exception('Unable to load Mage class');
-    }
-
-    exit(0);
-}
-catch (Exception $e) {
-    printMessage($e->getMessage(), true);
 }
 
-function help() {
-    $help = <<<HELP
-
-HELP;
+if (!defined('DO_NOT_RUN')) {
+    $run = new Magetools_Version();
+    $run->run();
     exit(0);
 }
