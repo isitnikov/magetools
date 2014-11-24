@@ -8,14 +8,17 @@ $options = getopt('hfm:', array(
 
 $moduleName = array_pop($argv);
 
+$actionsFile = actionsGetFileName('modules');
+$log = actionsGetLog($actionsFile);
+
 try {
     if (isset($options['h']) || isset($options['help'])) {
         help();
     }
 
-    if (!($magePath = getMagentoDir(getcwd()))) {
-        throw new Exception('You should run this script inside Magento folder (or its childs)');
-    }
+
+    $magePath = getMagentoDir(getcwd());
+    chdir($magePath);
 
     $modulesDir = $magePath . DS . 'app' . DS . 'etc' . DS . 'modules';
 
@@ -23,40 +26,9 @@ try {
         throw new Exception('Modules dir is not writable');
     }
 
-    chdir($magePath);
+    $declarationFile = optionsGetModule($moduleName, $modulesDir, $options);
 
-    $declarationFile = false;
-
-    if (isset($options['m']) && !empty($options['m'])) {
-        if (!file_exists($options['m'])) {
-            throw new Exception(sprintf('Declaration file "%s" is not exists', $options['m']));
-        }
-        $declarationFile = $options['m'];
-    }
-
-    if (isset($options['module']) && !empty($options['module'])) {
-        if (!file_exists($options['module'])) {
-            throw new Exception(sprintf('Declaration file "%s" is not exists', $options['module']));
-        }
-        $declarationFile = $options['module'];
-    }
-
-    if (!$declarationFile) {
-        if (!preg_match('/^[A-z0-9]+\_[A-z0-9]+$/i', $moduleName)) {
-            throw new Exception('Name of custom module is absent');
-        }
-
-        $declarationFile = $modulesDir . DS . $moduleName . '.xml';
-        if (!file_exists($declarationFile)) {
-            throw new Exception(sprintf('Declaration file "%s" is not exists', $declarationFile));
-        }
-    }
-
-    $force = (isset($options['f']) || isset($options['force']));
-
-    if (!is_readable($declarationFile) || !filesize($declarationFile)) {
-        throw new Exception(sprintf('Declaration file "%s" is not readable or empty', $declarationFile));
-    }
+    $force = optionsGetForce($options);
 
     $declaration = simplexml_load_file($declarationFile);
     if (!$declaration) {
@@ -65,26 +37,122 @@ try {
 
     $moduleName = pathinfo($declarationFile, PATHINFO_FILENAME);
 
+    if (!$declaration->modules->xpath(sprintf('%s/active', $moduleName))) {
+        $children = $declaration->modules->children();
+        $moduleName = key($children);
+    }
+
     $status = (string) $declaration->modules->$moduleName->active;
 
     if (strtolower($status) === 'true') {
         throw new Exception(sprintf('This module "%s" is already enabled', $moduleName));
     }
-//
-//
-//    $modulesDeclarations = glob($currentDir . DIRECTORY_SEPARATOR . 'app/etc/modules/*.xml');
-//    foreach ($modulesDeclarations as $declarationFile) {
 
+    $depends = isset($declaration->modules->$moduleName->depends)
+        ? $declaration->modules->$moduleName->depends->children()
+        : false;
+
+    if ($depends) {
+        $dependenciesList = array();
+        $dependencies = getModulesDependencies($modulesDir);
+        moduleGetDepends($moduleName, $dependencies, $dependenciesList);
+
+        if (count($dependenciesList) && in_array(false, $dependenciesList)) {
+            $disabled = array();
+            foreach ($dependenciesList as $_moduleName => $_status) {
+                if ($_status === false) {
+                    $disabled[$_moduleName] = $dependencies[$_moduleName]['filename'];
+                }
+            }
+
+            if ($disabled) {
+                printMessage(sprintf(
+                    'Cannot enable this module, because it depended from modules "%s" which is(are) disabled',
+                    implode('", "', array_keys($dependsFrom))
+                ));
+                printMessage('Do you want to enable them too? [Y/n]');
+
+                $line = trim(fgets(STDIN));
+                if (in_array($line, array('y', 'Y'))) {
+                    $log['enable'][$moduleName]['together'] = array();
+
+                    foreach ($dependsFrom as $_moduleName => $_xmlFileName) {
+                        $_xmlFileName = $modulesDir . DS . $_xmlFileName;
+                        if (!file_exists($_xmlFileName)) {
+                            printMessage(sprintf('Declaration file "%s" is not exists', $_xmlFileName));
+                            continue;
+                        }
+
+                        if (!is_writable($_xmlFileName)) {
+                            printMessage(sprintf('Declaration file "%s" is not writable', $_xmlFileName));
+                            continue;
+                        }
+
+                        $_declaration = simplexml_load_file($_xmlFileName);
+                        if (!$_declaration) {
+                            printMessage(sprintf('Cannot load xml config of file "%s"', $_xmlFileName));
+                            continue;
+                        }
+
+                        $_declaration->modules->$_moduleName->active = "true";
+
+                        if ($_declaration->saveXML($_xmlFileName)) {
+//                            $log['enable'][$moduleName]['together'][$_moduleName] = $_xmlFileName;
+                        }
+                        printMessage(sprintf('Module "%s" was disabled successfully', $_moduleName));
+                    }
+                }
+            }
+        }
+    }
+
+//    if (isset($log['disable']) && isset($log['disable'][$moduleName])) {
+////        var_dump($log['disable'][$moduleName]['together']);
+////        exit;
+//        printMessage(sprintf(
+//            'When you disable this module last time, then following %s modules also were disabled.',
+//            implode(', ', array_keys($log['disable'][$moduleName]['together']))
+//        ));
+//        printMessage('Do you want to enable them too? [Y/n]');
 //
-//        foreach ($declaration->modules->children() as $moduleName => $options) {
-//            if (in_array($moduleName, $excludeModules)) {
-//                continue;
+//        $line = trim(fgets(STDIN));
+//        if (in_array($line, array('y', 'Y'))) {
+//            foreach ($log['disable'][$moduleName]['together'] as $_moduleName => $_xmlFileName) {
+//                if (!file_exists($_xmlFileName)) {
+//                    printMessage(sprintf('Declaration file "%s" is not exists', $_xmlFileName));
+//                    continue;
+//                }
+//
+//                if (!is_writable($_xmlFileName)) {
+//                    printMessage(sprintf('Declaration file "%s" is not writable', $_xmlFileName));
+//                    continue;
+//                }
+//
+//                $_declaration = simplexml_load_file($_xmlFileName);
+//                if (!$_declaration) {
+//                    printMessage(sprintf('Cannot load xml config of file "%s"', $_xmlFileName));
+//                    continue;
+//                }
+//
+//                $_declaration->modules->$_moduleName->active = "true";
+//
+//                if ($_declaration->saveXML($_xmlFileName)) {
+//                    $log['enable'][$moduleName]['together'][$_moduleName] = $_xmlFileName;
+//                }
+//                printMessage(sprintf('Module "%s" was enabled successfully', $_moduleName));
 //            }
-//            if ((string)$options->active === 'true' && (string)$options->codePool !== "core") {
-//                $usedModules[strtolower($moduleName)] = $moduleName;
-//            }
+//
+//            unset($log['disable'][$moduleName]);
 //        }
 //    }
+
+    $declaration->modules->$moduleName->active = "true";
+
+    $declaration->saveXML($declarationFile);
+
+    printMessage(sprintf('Module "%s" was enabled successfully', $moduleName));
+
+    actionsSetLog($actionsFile, $log);
 
     exit(0);
 }
