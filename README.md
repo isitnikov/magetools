@@ -9,6 +9,11 @@ Goal
 2. Simplify the switching of modules which have a lot of dependencies and depends from other
 3. Make the support of Magento more interesting and amusing yet :)
 
+Requirements
+------------
+1. PHP 5.3+ (cli)
+2. Unix-based OS
+
 Installation
 ------------
 1. Clone this repository locally 
