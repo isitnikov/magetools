@@ -48,6 +48,32 @@ class Magetools_EnableModule extends Magetools_Modules_Abstract
             $this->_printMessage(sprintf('Module "%s" wasn\'t enabled', $this->_moduleName));
         }
     }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Enable specified module of Magento
+
+Usage:
+    mageenmod.php [-f|--force] Needed_Module
+    mageenmod.php [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
+    mageenmod.php -h | --help
+
+    php -f mageenmod.php [-f|--force] Needed_Module
+    php -f mageenmod.php [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
+    php -f mageenmod.php -h | --help
+
+    mage.php --em|--enmod [-f|--force] Needed_Module
+    mage.php --em|--enmod [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
+    mage.php --em|--enmod -h | --help
+
+Options:
+    -h --help   Show this screen
+    -f --force  Force disabling (without checking for current status)
+    -m --module Path to module declaration XML relative to Magento root folder
+
+USAGE;
+    }
 }
 
 if (!defined('DO_NOT_RUN')) {

@@ -22,6 +22,27 @@ class Magetools_EnableDevMode extends Magetools_IndexPhp_Abstract
         $this->_printMessage('MAGE_IS_DEVELOPER_MODE is enabled');
         $this->_printMessage("ini_set('display_errors'); is uncommented");
     }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Enable MAGE_IS_DEVELOPER_MODE
+
+Usage:
+    mageendevmode.php
+    mageendevmode -h | --help
+
+    php -f mageendevmode.php
+    php -f mageendevmode.php -h | --help
+
+    mage.php --edm|--endevmode
+    mage.php --edm|--endevmode -h | --help
+
+Options:
+    -h --help   Show this screen
+
+USAGE;
+    }
 }
 
 if (!defined('DO_NOT_RUN')) {

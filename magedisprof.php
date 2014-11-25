@@ -32,6 +32,27 @@ class Magetools_DisableProfiler extends Magetools_IndexPhp_Abstract
 
         $this->_printMessage('Varien_Profiler is disabled');
     }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Disable Varien_Profiler
+
+Usage:
+    magedisprof.php
+    magedisprof.php -h | --help
+
+    php -f magedisprof.php
+    php -f magedisprof.php -h | --help
+
+    mage.php --dp|--disprof
+    mage.php --dp|--disprof -h | --help
+
+Options:
+    -h --help   Show this screen
+
+USAGE;
+    }
 }
 
 if (!defined('DO_NOT_RUN')) {

@@ -29,6 +29,27 @@ class Magetools_DisableSqlDebug extends Magetools_SqlDebug_Abstract
 
         return $config;
     }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Disable SQL debugger
+
+Usage:
+    magedissqldebug.php
+    magedissqldebug.php -h | --help
+
+    php -f magedissqldebug.php
+    php -f magedissqldebug.php -h | --help
+
+    mage.php --dsd|--dissqldebug
+    mage.php --dsd|--dissqldebug -h | --help
+
+Options:
+    -h --help   Show this screen
+
+USAGE;
+    }
 }
 
 if (!defined('DO_NOT_RUN')) {

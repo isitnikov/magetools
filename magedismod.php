@@ -48,6 +48,32 @@ class Magetools_DisableModule extends Magetools_Modules_Abstract
             $this->_printMessage(sprintf('Module "%s" wasn\'t disabled', $this->_moduleName));
         }
     }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Disable specified module of Magento
+
+Usage:
+    magedismod.php [-f|--force] Needed_Module
+    magedismod.php [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
+    magedismod.php -h | --help
+
+    php -f magedismod.php [-f|--force] Needed_Module
+    php -f magedismod.php [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
+    php -f magedismod.php -h | --help
+
+    mage.php --dm|--dismod [-f|--force] Needed_Module
+    mage.php --dm|--dismod [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
+    mage.php --dm|--dismod -h | --help
+
+Options:
+    -h --help   Show this screen
+    -f --force  Force disabling (without checking for current status)
+    -m --module Path to module declaration XML relative to Magento root folder
+
+USAGE;
+    }
 }
 
 if (!defined('DO_NOT_RUN')) {

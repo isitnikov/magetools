@@ -22,6 +22,27 @@ class Magetools_Version extends Magetools_Abstract
             $this->_printMessage($e->getMessage(), true);
         }
     }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Show version of Magento
+
+Usage:
+    mageversion.php
+    mageversion.php -h | --help
+
+    php -f mageversion.php
+    php -f mageversion.php -h | --help
+
+    mage.php --v|--version
+    mage.php --v|--version -h | --help
+
+Options:
+    -h --help   Show this screen
+
+USAGE;
+    }
 }
 
 if (!defined('DO_NOT_RUN')) {

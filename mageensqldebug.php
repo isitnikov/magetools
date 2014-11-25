@@ -48,6 +48,29 @@ class Magetools_EnableSqlDebug extends Magetools_SqlDebug_Abstract
 
         return $config;
     }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Enable SQL debugger
+
+Usage:
+    mageensqldebug.php [-t|--disable-trace|-q|--disable-query]
+    mageensqldebug.php -h | --help
+
+    php -f mageensqldebug.php [-t|--disable-trace|-q|--disable-query]
+    php -f mageensqldebug.php -h | --help
+
+    mage.php --esd|--ensqldebug [-t|--disable-trace|-q|--disable-query]
+    mage.php --esd|--ensqldebug -h | --help
+
+Options:
+    -h --help           Show this screen
+    -t --disable-trace  Do not enable trace of call stack (by default it is enabled)
+    -q --disable-query  Do not enable log of all queries (by default it is enabled)
+
+USAGE;
+    }
 }
 
 if (!defined('DO_NOT_RUN')) {

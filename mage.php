@@ -1,114 +1,113 @@
 #!/usr/bin/env php
 <?php
-$errorMessage = "Cannot find this utility" . PHP_EOL;
+$routes = getRoutes();
 
-if (isset($argv) && isset($argv[1]) && count($argv) > 0) {
+if (isset($argv) && isset($argv[1])) {
     define('DO_NOT_RUN', true);
     $path = dirname(__FILE__);
 
-    $run = null;
-    switch($argv[1]) {
-        case "--v":
-        case "--version":
+    foreach ($routes as $route) {
+        if (in_array($argv[1], $route['aliases'])) {
             ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'mageversion.php';
+            require_once __DIR__ . DIRECTORY_SEPARATOR . $route['file'];
             ob_end_clean();
 
-            $run = new Magetools_Version();
-            break;
+            /** @var Magetools_Abstract $run */
+            $run = new $route['class']();
+            $run->run();
+            exit(0);
+        }
+    }
+}
 
-        case "--mt":
-        case "--modtree":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'magemodtree.php';
-            ob_end_clean();
+usageHelp();
 
-            $run = new Magetools_ModulesTree();
-            break;
+function getRoutes() {
+    return array(
+        array(
+            'aliases' => array('--v', '--version'),
+            'file' => 'mageversion.php',
+            'class' => 'Magetools_Version',
+            'description' => 'Show Magento version'
+        ),
+        array(
+            'aliases' => array('--mt', '--modtree'),
+            'file' => 'magemodtree.php',
+            'class' => 'Magetools_ModulesTree',
+            'description' => 'Show module(-s) dependencies tree'
+        ),
+        array(
+            'aliases' => array('--dm', '--dismod'),
+            'file' => 'magedismod.php',
+            'class' => 'Magetools_DisableModule',
+            'description' => 'Disable specified module'
+        ),
+        array(
+            'aliases' => array('--em', '--enmod'),
+            'file' => 'mageenmod.php',
+            'class' => 'Magetools_EnableModule',
+            'description' => 'Enable specified module'
+        ),
+        array(
+            'aliases' => array('--ddm', '--disdevmode'),
+            'file' => 'magedisdevmode.php',
+            'class' => 'Magetools_DisableDevMode',
+            'description' => 'Enable MAGE_IS_DEVELOPER_MODE'
+        ),
+        array(
+            'aliases' => array('--edm', '--endevmode'),
+            'file' => 'mageendevmode.php',
+            'class' => 'Magetools_EnableDevMode',
+            'description' => 'Disable MAGE_IS_DEVELOPER_MODE'
+        ),
+        array(
+            'aliases' => array('--dp', '--disprof'),
+            'file' => 'magedisprof.php',
+            'class' => 'Magetools_DisableProfiler',
+            'description' => 'Enable Varien_Profiler'
+        ),
+        array(
+            'aliases' => array('--ep', '--enprof'),
+            'file' => 'mageenprof.php',
+            'class' => 'Magetools_EnableProfiler',
+            'description' => 'Disable Varien_Profiler'
+        ),
+        array(
+            'aliases' => array('--dsd', '--dissqldebug'),
+            'file' => 'magedissqldebug.php',
+            'class' => 'Magetools_DisableSqlDebug',
+            'description' => 'Enable SQL debug'
+        ),
+        array(
+            'aliases' => array('--esd', '--ensqldebug'),
+            'file' => 'mageensqldebug.php',
+            'class' => 'Magetools_EnableSqlDebug',
+            'description' => 'Disable SQL debug'
+        ),
+    );
+}
 
-        case "--dm":
-        case "--dismod":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'magedismod.php';
-            ob_end_clean();
+function usageHelp() {
+    $usage = <<<USAGE
+Usage:
+    mage.php
+    mage.php -h | --help
+    mage.php <command> [<args>]
 
-            $run = new Magetools_DisableModule();
-            break;
+Options:
+    -h --help           Show this screen
 
-        case "--em":
-        case "--enmod":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'mageenmod.php';
-            ob_end_clean();
+The most commonly used mage commands are:
 
-            $run = new Magetools_EnableModule();
-            break;
+USAGE;
 
-        case "--edm":
-        case "--endevmod":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'mageendevmode.php';
-            ob_end_clean();
-
-            $run = new Magetools_EnableDevMode();
-            break;
-
-        case "--ddm":
-        case "--disdevmod":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'magedisdevmode.php';
-            ob_end_clean();
-
-            $run = new Magetools_DisableDevMode();
-            break;
-
-        case "--ep":
-        case "--enprof":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'mageenprof.php';
-            ob_end_clean();
-
-            $run = new Magetools_EnableProfiler();
-            break;
-
-        case "--dp":
-        case "--disprof":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'magedisprof.php';
-            ob_end_clean();
-
-            $run = new Magetools_DisableProfiler();
-            break;
-
-        case "--esd":
-        case "--ensqldebug":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'mageensqldebug.php';
-            ob_end_clean();
-
-            $run = new Magetools_EnableSqlDebug();
-            break;
-
-        case "--dsd":
-        case "--dissqldebug":
-            ob_start();
-            require_once $path . DIRECTORY_SEPARATOR . 'magedissqldebug.php';
-            ob_end_clean();
-
-            $run = new Magetools_DisableSqlDebug();
-            break;
-
-        default:
-            die($errorMessage);
-            break;
+    foreach (getRoutes() as $route) {
+        $usage .= sprintf(
+            '    %-21s  %s' . PHP_EOL,
+            implode(' | ', $route['aliases']),
+            $route['description']
+        );
     }
 
-    if ($run) {
-        $run->run();
-        exit(0);
-    } else {
-        die($errorMessage);
-    }
-} else {
-    die($errorMessage);
+    die($usage . PHP_EOL);
 }

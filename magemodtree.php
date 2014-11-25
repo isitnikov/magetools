@@ -71,6 +71,32 @@ class Magetools_ModulesTree extends Magetools_Modules_Abstract
 
         return $str;
     }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Show module(-s) dependencies tree
+
+Usage:
+    magemodtree.php -a | --all
+    magemodtree.php -m | --module app/etc/modules/Needed_Module.xml
+    magemodtree.php -h | --help
+
+    php -f magemodtree.php -a | --all
+    php -f magemodtree.php -m | --module app/etc/modules/Needed_Module.xml
+    php -f magemodtree.php -h | --help
+
+    mage.php --mt|--modtree -a | --all
+    mage.php --mt|--modtree -m | --module app/etc/modules/Needed_Module.xml
+    mage.php --mt|--modtree -h | --help
+
+Options:
+    -h --help   Show this screen
+    -a --all    Show all modules
+    -m --module Path to module declaration XML relative to Magento root folder
+
+USAGE;
+    }
 }
 
 if (!defined('DO_NOT_RUN')) {
