@@ -37,51 +37,51 @@ function getRoutes() {
             'description' => 'Show module(-s) dependencies tree'
         ),
         array(
-            'aliases' => array('--dm', '--dismod'),
-            'file' => 'magedismod.php',
-            'class' => 'Magetools_DisableModule',
-            'description' => 'Disable specified module'
-        ),
-        array(
             'aliases' => array('--em', '--enmod'),
             'file' => 'mageenmod.php',
             'class' => 'Magetools_EnableModule',
             'description' => 'Enable specified module'
         ),
         array(
-            'aliases' => array('--ddm', '--disdevmode'),
-            'file' => 'magedisdevmode.php',
-            'class' => 'Magetools_DisableDevMode',
-            'description' => 'Enable MAGE_IS_DEVELOPER_MODE'
+            'aliases' => array('--dm', '--dismod'),
+            'file' => 'magedismod.php',
+            'class' => 'Magetools_DisableModule',
+            'description' => 'Disable specified module'
         ),
         array(
             'aliases' => array('--edm', '--endevmode'),
-            'file' => 'mageendevmode.php',
+            'file' => 'magedisdevmode.php',
             'class' => 'Magetools_EnableDevMode',
+            'description' => 'Enable MAGE_IS_DEVELOPER_MODE'
+        ),
+        array(
+            'aliases' => array('--ddm', '--disdevmode'),
+            'file' => 'mageendevmode.php',
+            'class' => 'Magetools_DisableDevMode',
             'description' => 'Disable MAGE_IS_DEVELOPER_MODE'
         ),
         array(
-            'aliases' => array('--dp', '--disprof'),
+            'aliases' => array('--ep', '--enprof'),
             'file' => 'magedisprof.php',
-            'class' => 'Magetools_DisableProfiler',
+            'class' => 'Magetools_EnableProfiler',
             'description' => 'Enable Varien_Profiler'
         ),
         array(
-            'aliases' => array('--ep', '--enprof'),
+            'aliases' => array('--dp', '--disprof'),
             'file' => 'mageenprof.php',
-            'class' => 'Magetools_EnableProfiler',
+            'class' => 'Magetools_DisableProfiler',
             'description' => 'Disable Varien_Profiler'
         ),
         array(
-            'aliases' => array('--dsd', '--dissqldebug'),
+            'aliases' => array('--esd', '--ensqldebug'),
             'file' => 'magedissqldebug.php',
-            'class' => 'Magetools_DisableSqlDebug',
+            'class' => 'Magetools_EnableSqlDebug',
             'description' => 'Enable SQL debug'
         ),
         array(
-            'aliases' => array('--esd', '--ensqldebug'),
+            'aliases' => array('--dsd', '--dissqldebug'),
             'file' => 'mageensqldebug.php',
-            'class' => 'Magetools_EnableSqlDebug',
+            'class' => 'Magetools_DisableSqlDebug',
             'description' => 'Disable SQL debug'
         ),
     );

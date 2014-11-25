@@ -36,12 +36,12 @@ Options:
 The most commonly used mage commands are:
     --v | --version        Show Magento version
     --mt | --modtree       Show module(-s) dependencies tree
-    --dm | --dismod        Disable specified module
     --em | --enmod         Enable specified module
-    --ddm | --disdevmode   Enable MAGE_IS_DEVELOPER_MODE
-    --edm | --endevmode    Disable MAGE_IS_DEVELOPER_MODE
-    --dp | --disprof       Enable Varien_Profiler
-    --ep | --enprof        Disable Varien_Profiler
-    --dsd | --dissqldebug  Enable SQL debug
-    --esd | --ensqldebug   Disable SQL debug
+    --dm | --dismod        Disable specified module
+    --edm | --endevmode    Enable MAGE_IS_DEVELOPER_MODE
+    --ddm | --disdevmode   Disable MAGE_IS_DEVELOPER_MODE
+    --ep | --enprof        Enable Varien_Profiler
+    --dp | --disprof       Disable Varien_Profiler
+    --esd | --ensqldebug   Enable SQL debug
+    --dsd | --dissqldebug  Disable SQL debug
 ````
