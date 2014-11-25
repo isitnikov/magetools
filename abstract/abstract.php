@@ -39,10 +39,12 @@ abstract class Magetools_Abstract
 
     protected $_localXml;
 
+    protected $_version = '1.0.0.0';
+
     protected function _getOptions()
     {
         if (!$this->_options) {
-            $this->_options = getopt($this->_opts, $this->_longOpts);
+            $this->_options = getopt($this->_opts . 'v', $this->_longOpts);
             $this->_options['default'] = array_pop($_SERVER['argv']);
             // [^\-].*
         }
@@ -77,6 +79,14 @@ abstract class Magetools_Abstract
     {
         if ($this->_getOpt('help')) {
             die($this->_usageHelp());
+        }
+    }
+
+    protected function _showVersion()
+    {
+        $options = $this->_getOptions();
+        if (isset($options['v'])) {
+            die($this->_scriptName . ' version: ' . $this->_version . PHP_EOL);
         }
     }
 
@@ -123,6 +133,7 @@ USAGE;
     public function __construct()
     {
         $this->_validate();
+        $this->_showVersion();
         $this->_showHelp();
         $this->_checkMageDirectory();
         return $this;
