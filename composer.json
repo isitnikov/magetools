@@ -1,0 +1,12 @@
+{
+    "name": "isitnikov/magetools",
+    "description": "Set of utilities for fast manage Magento 1.X",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Ihor Sitnikov",
+            "email": "ihor.sitnikov@gmail.com"
+        }
+    ]
+}
