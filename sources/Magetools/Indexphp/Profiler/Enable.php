@@ -1,6 +1,4 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'indexphp.abstract.php';
 
 class Magetools_EnableProfiler extends Magetools_IndexPhp_Abstract
 {
