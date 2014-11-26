@@ -1,8 +1,6 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'modules.abstract.php';
 
-class Magetools_DisableModule extends Magetools_Modules_Abstract
+class Magetools_Module_Disable extends Magetools_Module_Abstract
 {
     protected $_scriptName = 'magedismod.php';
 
@@ -55,14 +53,6 @@ class Magetools_DisableModule extends Magetools_Modules_Abstract
 Magetools: Disable specified module of Magento
 
 Usage:
-    magedismod.php [-f|--force] Needed_Module
-    magedismod.php [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
-    magedismod.php -h | --help
-
-    php -f magedismod.php [-f|--force] Needed_Module
-    php -f magedismod.php [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
-    php -f magedismod.php -h | --help
-
     mage.php --dm|--dismod [-f|--force] Needed_Module
     mage.php --dm|--dismod [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
     mage.php --dm|--dismod -h | --help
@@ -74,10 +64,4 @@ Options:
 
 USAGE;
     }
-}
-
-if (!defined('DO_NOT_RUN')) {
-    $run = new Magetools_DisableModule();
-    $run->run();
-    exit(0);
 }

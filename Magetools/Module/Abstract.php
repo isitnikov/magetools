@@ -1,7 +1,6 @@
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract.php';
 
-abstract class Magetools_Modules_Abstract extends Magetools_Abstract {
+abstract class Magetools_Module_Abstract extends Magetools_Abstract {
 
     protected $_opts = 'hfm:';
     protected $_longOpts = array(

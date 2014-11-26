@@ -1,8 +1,6 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'modules.abstract.php';
 
-class Magetools_EnableModule extends Magetools_Modules_Abstract
+class Magetools_Module_Enable extends Magetools_Module_Abstract
 {
     protected $_scriptName = 'mageenmod.php';
 
@@ -55,14 +53,6 @@ class Magetools_EnableModule extends Magetools_Modules_Abstract
 Magetools: Enable specified module of Magento
 
 Usage:
-    mageenmod.php [-f|--force] Needed_Module
-    mageenmod.php [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
-    mageenmod.php -h | --help
-
-    php -f mageenmod.php [-f|--force] Needed_Module
-    php -f mageenmod.php [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
-    php -f mageenmod.php -h | --help
-
     mage.php --em|--enmod [-f|--force] Needed_Module
     mage.php --em|--enmod [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
     mage.php --em|--enmod -h | --help
@@ -74,10 +64,4 @@ Options:
 
 USAGE;
     }
-}
-
-if (!defined('DO_NOT_RUN')) {
-    $run = new Magetools_EnableModule();
-    $run->run();
-    exit(0);
 }

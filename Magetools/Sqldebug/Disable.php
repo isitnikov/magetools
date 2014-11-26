@@ -1,8 +1,6 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'sqldebug.abstract.php';
 
-class Magetools_DisableSqlDebug extends Magetools_SqlDebug_Abstract
+class Magetools_Sqldebug_Disable extends Magetools_Sqldebug_Abstract
 {
     protected $_scriptName = 'magedissqldebug.php';
 
@@ -36,12 +34,6 @@ class Magetools_DisableSqlDebug extends Magetools_SqlDebug_Abstract
 Magetools: Disable SQL debugger
 
 Usage:
-    magedissqldebug.php
-    magedissqldebug.php -h | --help
-
-    php -f magedissqldebug.php
-    php -f magedissqldebug.php -h | --help
-
     mage.php --dsd|--dissqldebug
     mage.php --dsd|--dissqldebug -h | --help
 
@@ -50,10 +42,4 @@ Options:
 
 USAGE;
     }
-}
-
-if (!defined('DO_NOT_RUN')) {
-    $run = new Magetools_DisableSqlDebug();
-    $run->run();
-    exit(0);
 }

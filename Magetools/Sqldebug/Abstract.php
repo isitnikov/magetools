@@ -1,7 +1,6 @@
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract.php';
 
-abstract class Magetools_SqlDebug_Abstract extends Magetools_Abstract {
+abstract class Magetools_Sqldebug_Abstract extends Magetools_Abstract {
 
     public function run()
     {

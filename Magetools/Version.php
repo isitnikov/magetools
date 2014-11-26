@@ -1,6 +1,4 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'abstract.php';
 
 class Magetools_Version extends Magetools_Abstract
 {
@@ -29,12 +27,6 @@ class Magetools_Version extends Magetools_Abstract
 Magetools: Show version of Magento
 
 Usage:
-    mageversion.php
-    mageversion.php -h | --help
-
-    php -f mageversion.php
-    php -f mageversion.php -h | --help
-
     mage.php --v|--version
     mage.php --v|--version -h | --help
 
@@ -43,10 +35,4 @@ Options:
 
 USAGE;
     }
-}
-
-if (!defined('DO_NOT_RUN')) {
-    $run = new Magetools_Version();
-    $run->run();
-    exit(0);
 }

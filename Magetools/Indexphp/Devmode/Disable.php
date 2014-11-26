@@ -1,8 +1,6 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'indexphp.abstract.php';
 
-class Magetools_DisableDevMode extends Magetools_IndexPhp_Abstract
+class Magetools_Indexphp_Devmode_Disable extends Magetools_Indexphp_Abstract
 {
     protected $_scriptName = 'magedisdevmode.php';
 
@@ -29,12 +27,6 @@ class Magetools_DisableDevMode extends Magetools_IndexPhp_Abstract
 Magetools: Disable MAGE_IS_DEVELOPER_MODE
 
 Usage:
-    magedisdevmode.php
-    magedisdevmode -h | --help
-
-    php -f magedisdevmode.php
-    php -f magedisdevmode.php -h | --help
-
     mage.php --ddm|--disdevmode
     mage.php --ddm|--disdevmode -h | --help
 
@@ -43,10 +35,4 @@ Options:
 
 USAGE;
     }
-}
-
-if (!defined('DO_NOT_RUN')) {
-    $run = new Magetools_DisableDevMode();
-    $run->run();
-    exit(0);
 }

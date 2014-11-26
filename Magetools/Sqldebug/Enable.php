@@ -1,8 +1,6 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'sqldebug.abstract.php';
 
-class Magetools_EnableSqlDebug extends Magetools_SqlDebug_Abstract
+class Magetools_Sqldebug_Enable extends Magetools_Sqldebug_Abstract
 {
     protected $_opts = 'htq';
 
@@ -55,12 +53,6 @@ class Magetools_EnableSqlDebug extends Magetools_SqlDebug_Abstract
 Magetools: Enable SQL debugger
 
 Usage:
-    mageensqldebug.php [-t|--disable-trace|-q|--disable-query]
-    mageensqldebug.php -h | --help
-
-    php -f mageensqldebug.php [-t|--disable-trace|-q|--disable-query]
-    php -f mageensqldebug.php -h | --help
-
     mage.php --esd|--ensqldebug [-t|--disable-trace|-q|--disable-query]
     mage.php --esd|--ensqldebug -h | --help
 
@@ -71,10 +63,4 @@ Options:
 
 USAGE;
     }
-}
-
-if (!defined('DO_NOT_RUN')) {
-    $run = new Magetools_EnableSqlDebug();
-    $run->run();
-    exit(0);
 }

@@ -1,8 +1,6 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'indexphp.abstract.php';
 
-class Magetools_DisableProfiler extends Magetools_IndexPhp_Abstract
+class Magetools_Indexphp_Profiler_Disable extends Magetools_Indexphp_Abstract
 {
     protected $_scriptName = 'magedisprof.php';
 
@@ -39,12 +37,6 @@ class Magetools_DisableProfiler extends Magetools_IndexPhp_Abstract
 Magetools: Disable Varien_Profiler
 
 Usage:
-    magedisprof.php
-    magedisprof.php -h | --help
-
-    php -f magedisprof.php
-    php -f magedisprof.php -h | --help
-
     mage.php --dp|--disprof
     mage.php --dp|--disprof -h | --help
 
@@ -53,10 +45,4 @@ Options:
 
 USAGE;
     }
-}
-
-if (!defined('DO_NOT_RUN')) {
-    $run = new Magetools_DisableProfiler();
-    $run->run();
-    exit(0);
 }

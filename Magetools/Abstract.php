@@ -1,7 +1,5 @@
 <?php
 
-define('DS', DIRECTORY_SEPARATOR);
-
 abstract class Magetools_Abstract
 {
     protected $_opts = 'h';

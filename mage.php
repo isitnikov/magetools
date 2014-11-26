@@ -1,19 +1,33 @@
 #!/usr/bin/env php
 <?php
+define('DS', DIRECTORY_SEPARATOR);
+
 $routes = getRoutes();
 
-if (isset($argv) && isset($argv[1])) {
-    define('DO_NOT_RUN', true);
-    $path = dirname(__FILE__);
+function Magetools_Autoloader($className) {
+    $classPath = __DIR__ . DS . str_replace('_', '/', $className) . '.php';
+    if (!file_exists($classPath)) {
+        throw new Exception(
+            sprintf(
+                'Class "%s" cannot be loaded, because class filename "%s" is not exists',
+                $className, $classPath
+            )
+        );
+    }
 
+    require_once $classPath;
+}
+
+spl_autoload_register('Magetools_Autoloader');
+
+
+if (isset($argv) && isset($argv[1])) {
     foreach ($routes as $route) {
         if (in_array($argv[1], $route['aliases'])) {
-            ob_start();
-            require_once __DIR__ . DIRECTORY_SEPARATOR . $route['file'];
-            ob_end_clean();
+            $className = 'Magetools_' . $route['class'];
 
             /** @var Magetools_Abstract $run */
-            $run = new $route['class']();
+            $run = new $className();
             $run->run();
             exit(0);
         }
@@ -26,62 +40,52 @@ function getRoutes() {
     return array(
         array(
             'aliases' => array('--v', '--version'),
-            'file' => 'mageversion.php',
-            'class' => 'Magetools_Version',
+            'class' => 'Version',
             'description' => 'Show Magento version'
         ),
         array(
             'aliases' => array('--mt', '--modtree'),
-            'file' => 'magemodtree.php',
-            'class' => 'Magetools_ModulesTree',
+            'class' => 'Module_Tree',
             'description' => 'Show module(-s) dependencies tree'
         ),
         array(
             'aliases' => array('--em', '--enmod'),
-            'file' => 'mageenmod.php',
-            'class' => 'Magetools_EnableModule',
+            'class' => 'Module_Enable',
             'description' => 'Enable specified module'
         ),
         array(
             'aliases' => array('--dm', '--dismod'),
-            'file' => 'magedismod.php',
-            'class' => 'Magetools_DisableModule',
+            'class' => 'Module_Disable',
             'description' => 'Disable specified module'
         ),
         array(
             'aliases' => array('--edm', '--endevmode'),
-            'file' => 'magedisdevmode.php',
-            'class' => 'Magetools_EnableDevMode',
+            'class' => 'Indexphp_Devmode_Enable',
             'description' => 'Enable MAGE_IS_DEVELOPER_MODE'
         ),
         array(
             'aliases' => array('--ddm', '--disdevmode'),
-            'file' => 'mageendevmode.php',
-            'class' => 'Magetools_DisableDevMode',
+            'class' => 'Indexphp_Devmode_Disable',
             'description' => 'Disable MAGE_IS_DEVELOPER_MODE'
         ),
         array(
             'aliases' => array('--ep', '--enprof'),
-            'file' => 'magedisprof.php',
-            'class' => 'Magetools_EnableProfiler',
+            'class' => 'Indexphp_Profiler_Enable',
             'description' => 'Enable Varien_Profiler'
         ),
         array(
             'aliases' => array('--dp', '--disprof'),
-            'file' => 'mageenprof.php',
-            'class' => 'Magetools_DisableProfiler',
+            'class' => 'Indexphp_Profiler_Disable',
             'description' => 'Disable Varien_Profiler'
         ),
         array(
             'aliases' => array('--esd', '--ensqldebug'),
-            'file' => 'magedissqldebug.php',
-            'class' => 'Magetools_EnableSqlDebug',
+            'class' => 'Sqldebug_Enable',
             'description' => 'Enable SQL debug'
         ),
         array(
             'aliases' => array('--dsd', '--dissqldebug'),
-            'file' => 'mageensqldebug.php',
-            'class' => 'Magetools_DisableSqlDebug',
+            'class' => 'Sqldebug_Disable',
             'description' => 'Disable SQL debug'
         ),
     );

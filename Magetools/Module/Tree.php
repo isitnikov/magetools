@@ -1,8 +1,6 @@
-#!/usr/bin/env php
 <?php
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'abstract' . DIRECTORY_SEPARATOR . 'modules.abstract.php';
 
-class Magetools_ModulesTree extends Magetools_Modules_Abstract
+class Magetools_Module_Tree extends Magetools_Module_Abstract
 {
     protected $_opts = 'ham:';
     protected $_longOpts = array(
@@ -78,14 +76,6 @@ class Magetools_ModulesTree extends Magetools_Modules_Abstract
 Magetools: Show module(-s) dependencies tree
 
 Usage:
-    magemodtree.php -a | --all
-    magemodtree.php -m | --module app/etc/modules/Needed_Module.xml
-    magemodtree.php -h | --help
-
-    php -f magemodtree.php -a | --all
-    php -f magemodtree.php -m | --module app/etc/modules/Needed_Module.xml
-    php -f magemodtree.php -h | --help
-
     mage.php --mt|--modtree -a | --all
     mage.php --mt|--modtree -m | --module app/etc/modules/Needed_Module.xml
     mage.php --mt|--modtree -h | --help
@@ -97,10 +87,4 @@ Options:
 
 USAGE;
     }
-}
-
-if (!defined('DO_NOT_RUN')) {
-    $run = new Magetools_ModulesTree();
-    $run->run();
-    exit(0);
 }
