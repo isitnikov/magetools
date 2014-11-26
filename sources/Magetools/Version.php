@@ -27,8 +27,8 @@ class Magetools_Version extends Magetools_Abstract
 Magetools: Show version of Magento
 
 Usage:
-    mage.php --v|--version
-    mage.php --v|--version -h | --help
+    mage.phar --v|--version
+    mage.phar --v|--version -h | --help
 
 Options:
     -h --help   Show this screen

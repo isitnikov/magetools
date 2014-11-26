@@ -76,9 +76,9 @@ class Magetools_Module_Tree extends Magetools_Module_Abstract
 Magetools: Show module(-s) dependencies tree
 
 Usage:
-    mage.php --mt|--modtree -a | --all
-    mage.php --mt|--modtree -m | --module app/etc/modules/Needed_Module.xml
-    mage.php --mt|--modtree -h | --help
+    mage.phar --mt|--modtree -a | --all
+    mage.phar --mt|--modtree -m | --module app/etc/modules/Needed_Module.xml
+    mage.phar --mt|--modtree -h | --help
 
 Options:
     -h --help   Show this screen

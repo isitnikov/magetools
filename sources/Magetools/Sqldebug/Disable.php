@@ -34,8 +34,8 @@ class Magetools_Sqldebug_Disable extends Magetools_Sqldebug_Abstract
 Magetools: Disable SQL debugger
 
 Usage:
-    mage.php --dsd|--dissqldebug
-    mage.php --dsd|--dissqldebug -h | --help
+    mage.phar --dsd|--dissqldebug
+    mage.phar --dsd|--dissqldebug -h | --help
 
 Options:
     -h --help   Show this screen

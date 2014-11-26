@@ -17,18 +17,18 @@ Requirements
 Installation
 ------------
 1. Clone this repository locally 
-2. Set permissions of *mage.php* for executing `chmod +x magetools/mage.php`
-3. Link *mage.php* into your local *~/bin* folder ``ln -s `pwd`/magetools/mage.php ~/bin/mage.php``
+2. Set permissions of *bin/mage.phar* for executing `chmod +x magetools/bin/mage.phar`
+3. Link *mage.phar* into your local *~/bin* folder ``ln -s `pwd`/magetools/bin/mage.phar ~/bin/mage.phar``
 
 How to use it?
 --------------
-Just run ``$ mage.php`` and you will get following usage infomation: 
+Just run ``$ mage.phar`` and you will get following usage infomation: 
 
 ````
 Usage:
-    mage.php
-    mage.php -h | --help
-    mage.php <command> [<args>]
+    mage.phar
+    mage.phar -h | --help
+    mage.phar <command> [<args>]
 
 Options:
     -h --help           Show this screen

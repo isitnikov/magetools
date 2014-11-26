@@ -37,8 +37,8 @@ class Magetools_Indexphp_Profiler_Disable extends Magetools_Indexphp_Abstract
 Magetools: Disable Varien_Profiler
 
 Usage:
-    mage.php --dp|--disprof
-    mage.php --dp|--disprof -h | --help
+    mage.phar --dp|--disprof
+    mage.phar --dp|--disprof -h | --help
 
 Options:
     -h --help   Show this screen

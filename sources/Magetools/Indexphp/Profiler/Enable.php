@@ -46,9 +46,9 @@ class Magetools_EnableProfiler extends Magetools_IndexPhp_Abstract
 Magetools: Enable Varien_Profiler
 
 Usage:
-    mage.php --ep|--enprof
-    mage.php --ep|--enprof -h | --help
-    mage.php --ep|--enprof --ips=<X.X.X.X>,...
+    mage.phar --ep|--enprof
+    mage.phar --ep|--enprof -h | --help
+    mage.phar --ep|--enprof --ips=<X.X.X.X>,...
 
 Options:
     -h --help   Show this screen

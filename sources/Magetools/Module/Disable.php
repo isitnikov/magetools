@@ -53,9 +53,9 @@ class Magetools_Module_Disable extends Magetools_Module_Abstract
 Magetools: Disable specified module of Magento
 
 Usage:
-    mage.php --dm|--dismod [-f|--force] Needed_Module
-    mage.php --dm|--dismod [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
-    mage.php --dm|--dismod -h | --help
+    mage.phar --dm|--dismod [-f|--force] Needed_Module
+    mage.phar --dm|--dismod [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
+    mage.phar --dm|--dismod -h | --help
 
 Options:
     -h --help   Show this screen

@@ -53,8 +53,8 @@ class Magetools_Sqldebug_Enable extends Magetools_Sqldebug_Abstract
 Magetools: Enable SQL debugger
 
 Usage:
-    mage.php --esd|--ensqldebug [-t|--disable-trace|-q|--disable-query]
-    mage.php --esd|--ensqldebug -h | --help
+    mage.phar --esd|--ensqldebug [-t|--disable-trace|-q|--disable-query]
+    mage.phar --esd|--ensqldebug -h | --help
 
 Options:
     -h --help           Show this screen

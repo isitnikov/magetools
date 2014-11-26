@@ -1,11 +1,10 @@
-#!/usr/bin/env php
 <?php
 define('DS', DIRECTORY_SEPARATOR);
 
 $routes = getRoutes();
 
 function Magetools_Autoloader($className) {
-    $classPath = __DIR__ . DS . str_replace('_', '/', $className) . '.php';
+    $classPath = 'phar://mage.phar/' . str_replace('_', '/', $className) . '.php';
     if (!file_exists($classPath)) {
         throw new Exception(
             sprintf(
@@ -19,7 +18,6 @@ function Magetools_Autoloader($className) {
 }
 
 spl_autoload_register('Magetools_Autoloader');
-
 
 if (isset($argv) && isset($argv[1])) {
     foreach ($routes as $route) {
@@ -94,9 +92,9 @@ function getRoutes() {
 function usageHelp() {
     $usage = <<<USAGE
 Usage:
-    mage.php
-    mage.php -h | --help
-    mage.php <command> [<args>]
+    mage.phar
+    mage.phar -h | --help
+    mage.phar <command> [<args>]
 
 Options:
     -h --help           Show this screen

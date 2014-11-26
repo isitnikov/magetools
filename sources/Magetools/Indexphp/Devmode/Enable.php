@@ -27,8 +27,8 @@ class Magetools_Indexphp_Devmode_Enable extends Magetools_Indexphp_Abstract
 Magetools: Enable MAGE_IS_DEVELOPER_MODE
 
 Usage:
-    mage.php --edm|--endevmode
-    mage.php --edm|--endevmode -h | --help
+    mage.phar --edm|--endevmode
+    mage.phar --edm|--endevmode -h | --help
 
 Options:
     -h --help   Show this screen

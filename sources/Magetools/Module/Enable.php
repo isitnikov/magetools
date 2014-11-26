@@ -53,9 +53,9 @@ class Magetools_Module_Enable extends Magetools_Module_Abstract
 Magetools: Enable specified module of Magento
 
 Usage:
-    mage.php --em|--enmod [-f|--force] Needed_Module
-    mage.php --em|--enmod [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
-    mage.php --em|--enmod -h | --help
+    mage.phar --em|--enmod [-f|--force] Needed_Module
+    mage.phar --em|--enmod [-f|--force] -m|--module app/etc/modules/Needed_Module.xml
+    mage.phar --em|--enmod -h | --help
 
 Options:
     -h --help   Show this screen

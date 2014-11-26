@@ -27,8 +27,8 @@ class Magetools_Indexphp_Devmode_Disable extends Magetools_Indexphp_Abstract
 Magetools: Disable MAGE_IS_DEVELOPER_MODE
 
 Usage:
-    mage.php --ddm|--disdevmode
-    mage.php --ddm|--disdevmode -h | --help
+    mage.phar --ddm|--disdevmode
+    mage.phar --ddm|--disdevmode -h | --help
 
 Options:
     -h --help   Show this screen
