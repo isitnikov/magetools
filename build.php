@@ -4,7 +4,8 @@ chdir(getcwd() . DIRECTORY_SEPARATOR . 'sources');
 $dirIterator = new RecursiveDirectoryIterator(realpath("Magetools"));
 $iterator    = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
 $files       = array(
-    'bootstrap.php' => realpath('bootstrap.php')
+    'bootstrap.php' => realpath('bootstrap.php'),
+    'Magetools.php' => realpath('Magetools.php')
 );
 /** @var SplFileInfo $file */
 foreach ($iterator as $file) {
