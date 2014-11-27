@@ -20,19 +20,21 @@ class Magetools_Module_Disable extends Magetools_Module_Abstract
                 return $var === true;
             });
 
-            $this->_printMessage(sprintf(
-                'Cannot disable this module, because following modules "%s" is(are) depends from this',
-                implode('", "', array_keys($enabled))
-            ));
-            $this->_printMessage('Do you want to disable them together? [Y/n]');
+            if (count($enabled)) {
+                $this->_printMessage(sprintf(
+                    'Cannot disable this module, because following modules "%s" is(are) depends from this',
+                    implode('", "', array_keys($enabled))
+                ));
+                $this->_printMessage('Do you want to disable them together? [Y/n]');
 
-            $line = trim(fgets(STDIN));
-            if (in_array($line, array('y', 'Y'))) {
-                foreach ($enabled as $_moduleName => $status) {
-                    if ($this->_changeModuleStatus($_moduleName, 'false')) {
-                        $this->_printMessage(sprintf('Module "%s" was disabled successfully', $_moduleName));
-                    } else {
-                        $this->_printMessage(sprintf('Module "%s" wasn\'t disabled', $_moduleName));
+                $line = trim(fgets(STDIN));
+                if (in_array($line, array('y', 'Y'))) {
+                    foreach ($enabled as $_moduleName => $status) {
+                        if ($this->_changeModuleStatus($_moduleName, 'false')) {
+                            $this->_printMessage(sprintf('Module "%s" was disabled successfully', $_moduleName));
+                        } else {
+                            $this->_printMessage(sprintf('Module "%s" wasn\'t disabled', $_moduleName));
+                        }
                     }
                 }
             }
