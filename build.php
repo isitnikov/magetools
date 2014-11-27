@@ -4,7 +4,7 @@ chdir(getcwd() . DIRECTORY_SEPARATOR . 'sources');
 $dirIterator = new RecursiveDirectoryIterator(realpath("Magetools"));
 $iterator    = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
 $files       = array(
-    'mage.php' => realpath('mage.php')
+    'bootstrap.php' => realpath('bootstrap.php')
 );
 /** @var SplFileInfo $file */
 foreach ($iterator as $file) {
@@ -35,7 +35,7 @@ function createStub()
 #!/usr/bin/env php
 <?php
 Phar::mapPhar('mage.phar');
-require 'phar://mage.phar/mage.php';
+require 'phar://mage.phar/bootstrap.php';
 __HALT_COMPILER();
 ENDSTUB;
 
