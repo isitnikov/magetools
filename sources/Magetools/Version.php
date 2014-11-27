@@ -7,14 +7,7 @@ class Magetools_Version extends Magetools_Abstract
     public function run()
     {
         try {
-            $mageFile = $this->_getMageDir('app') . DS . 'Mage.php';
-
-            if (!file_exists($mageFile)) {
-                throw new Exception(sprintf('The main file of Magento "%s" is absent', $mageFile));
-            }
-
-            @require_once $mageFile;
-
+            $this->_loadAppMagePhp();
             $this->_printMessage(sprintf('%s %s', Mage::getEdition(), Mage::getVersion()));
         } catch (Exception $e) {
             $this->_printMessage($e->getMessage(), true);

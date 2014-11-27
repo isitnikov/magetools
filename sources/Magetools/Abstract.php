@@ -182,4 +182,17 @@ USAGE;
 
         return $this->_localXml;
     }
+
+    protected function _loadAppMagePhp()
+    {
+        spl_autoload_unregister('Magetools_Autoloader');
+
+        $mageFile = $this->_getMageDir('app') . DS . 'Mage.php';
+
+        if (!file_exists($mageFile)) {
+            throw new Exception(sprintf('The main file of Magento "%s" is absent', $mageFile));
+        }
+
+        @require_once $mageFile;
+    }
 }

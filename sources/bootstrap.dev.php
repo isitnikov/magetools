@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 function Magetools_Autoloader($className) {
     $classPath = __DIR__ . DS . str_replace('_', '/', $className) . '.php';

@@ -5,11 +5,11 @@ spl_autoload_register('Magetools_Autoloader');
 
 final class Magetools
 {
-    private static $_routes;
+    protected static $_routes = array();
 
-    private static function _getRoutes()
+    protected static function _getRoutes()
     {
-        if (!self::$_routes)
+        if (!count(self::$_routes))
         {
             /**
              * @TODO refactor
@@ -65,6 +65,26 @@ final class Magetools
                     'class' => 'Sqldebug_Disable',
                     'description' => 'Disable SQL debug'
                 ),
+                array(
+                    'aliases' => array('--c', '--cache'),
+                    'class' => 'Cache',
+                    'description' => 'Show cache information'
+                ),
+                array(
+                    'aliases' => array('--cc', '--cache-clean'),
+                    'class' => 'Cache_Clean',
+                    'description' => 'Clean cache'
+                ),
+                array(
+                    'aliases' => array('--ce', '--cache-enable'),
+                    'class' => 'Cache',
+                    'description' => 'Enable cache'
+                ),
+                array(
+                    'aliases' => array('--cd', '--cache-disable'),
+                    'class' => 'Cache',
+                    'description' => 'Disable cache'
+                ),
             );
         }
 
@@ -73,9 +93,9 @@ final class Magetools
 
     public static function init()
     {
-        if (isset($argv) && isset($argv[1])) {
+        if (isset($_SERVER['argv']) && isset($_SERVER['argv'][1])) {
             foreach (self::_getRoutes() as $route) {
-                if (in_array($argv[1], $route['aliases'])) {
+                if (in_array($_SERVER['argv'][1], $route['aliases'])) {
                     $className = 'Magetools_' . $route['class'];
 
                     /** @var Magetools_Abstract $run */
