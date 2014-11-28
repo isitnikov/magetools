@@ -8,11 +8,7 @@ class Magetools_Version extends Magetools_Abstract
     {
         try {
             $this->_loadAppMagePhp();
-            if (class_exists('Mage')) {
-                $this->_printMessage(sprintf('%s %s', Mage::getEdition(), Mage::getVersion()));
-            } else {
-                throw new Exception('Class "Mage" is not found. Seems this file hasn\'t permissions for reading.');
-            }
+            $this->_printMessage(sprintf('%s %s', Mage::getEdition(), Mage::getVersion()));
         } catch (Exception $e) {
             $this->_printMessage($e->getMessage(), true);
         }

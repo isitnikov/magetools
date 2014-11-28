@@ -197,6 +197,10 @@ USAGE;
             throw new Exception(sprintf('The main file of Magento "%s" is not readable', $mageFile));
         }
 
+        if (!class_exists('Mage')) {
+            throw new Exception('Class "Mage" is not found. Maybe it was customized.');
+        }
+
         @require_once $mageFile;
     }
 }
