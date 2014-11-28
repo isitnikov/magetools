@@ -17,6 +17,9 @@ abstract class Magetools_Cache_Abstract extends Magetools_Abstract {
         try {
             $this->_loadAppMagePhp();
             Mage::app('admin')->setUseSessionInUrl(false);
+            Mage::getConfig()->init();
+            Mage::app('admin')->addEventArea('adminhtml');
+            Mage::app('admin')->loadArea('adminhtml');
             $this->_process();
         } catch (Exception $e) {
             $this->_printMessage($e->getMessage(), true);

@@ -49,6 +49,9 @@ class Magetools_Cache_Clean extends Magetools_Cache_Abstract
             }
 
             if ($clean) {
+                /**
+                 * @TODO why it don't work?
+                 */
                 Mage::app()->cleanCache($clean);
                 $this->_printMessage(sprintf(
                     'Following cache types "%s" were cleaned.',
