@@ -193,6 +193,10 @@ USAGE;
             throw new Exception(sprintf('The main file of Magento "%s" is absent', $mageFile));
         }
 
+        if (!is_readable($mageFile)) {
+            throw new Exception(sprintf('The main file of Magento "%s" is not readable', $mageFile));
+        }
+
         @require_once $mageFile;
     }
 }
