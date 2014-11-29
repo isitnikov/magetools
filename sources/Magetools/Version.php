@@ -8,11 +8,13 @@ class Magetools_Version extends Magetools_Abstract
     {
         try {
             $this->_loadAppMagePhp();
-            $magentoEdition = '';
+            $magentoVersion = Mage::getVersion();
             if (method_exists('Mage', 'getEdition')) {
                 $magentoEdition = sprintf("%s ", Mage::getEdition());
+            } else {
+                $magentoEdition = version_compare($magentoVersion, '1.7.0.0', '<') ? 'Community' : 'Enterprise';
             }
-            $this->_printMessage(sprintf('%s %s', $magentoEdition, Mage::getVersion()));
+            $this->_printMessage(sprintf('%s %s', $magentoEdition, $magentoVersion));
         } catch (Exception $e) {
             $this->_printMessage($e->getMessage(), true);
         }
