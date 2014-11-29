@@ -2,7 +2,6 @@
 
 abstract class Magetools_Cache_Abstract extends Magetools_Abstract
 {
-
     protected $_opts = 'hat:';
     protected $_longOpts = array(
         'help', 'all', 'type:'

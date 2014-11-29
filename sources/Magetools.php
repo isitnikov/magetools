@@ -125,7 +125,7 @@ USAGE;
 
         foreach (self::_getRoutes() as $route) {
             $usage .= sprintf(
-                '    %-21s  %s' . PHP_EOL,
+                '    %-22s  %s' . PHP_EOL,
                 implode(' | ', $route['aliases']),
                 $route['description']
             );

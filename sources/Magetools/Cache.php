@@ -2,6 +2,13 @@
 
 class Magetools_Cache extends Magetools_Cache_Abstract
 {
+    protected $_opts = 'h';
+    protected $_longOpts = array(
+        'help'
+    );
+    protected $_optsMap = array(
+        'help' => 'h'
+    );
     protected function _process()
     {
         $str = PHP_EOL;
@@ -22,5 +29,20 @@ class Magetools_Cache extends Magetools_Cache_Abstract
         }
         $str .= str_repeat('-', 80);
         $this->_printMessage($str);
+    }
+
+    protected function _usageHelp()
+    {
+        return <<<USAGE
+Magetools: Show cache information
+
+Usage:
+    mage.phar --mt|--modtree -h | --help
+
+Options:
+    -h --help Show this screen
+    -a --all  Show all modules
+    -t --type Type of cache
+USAGE;
     }
 }
