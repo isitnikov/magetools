@@ -77,12 +77,12 @@ final class Magetools
                 ),
                 array(
                     'aliases' => array('--ce', '--cache-enable'),
-                    'class' => 'Cache',
+                    'class' => 'Cache_Enable',
                     'description' => 'Enable cache'
                 ),
                 array(
                     'aliases' => array('--cd', '--cache-disable'),
-                    'class' => 'Cache',
+                    'class' => 'Cache_Disable',
                     'description' => 'Disable cache'
                 ),
             );
