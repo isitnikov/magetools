@@ -8,7 +8,11 @@ class Magetools_Version extends Magetools_Abstract
     {
         try {
             $this->_loadAppMagePhp();
-            $this->_printMessage(sprintf('%s %s', Mage::getEdition(), Mage::getVersion()));
+            $magentoEdition = '';
+            if (method_exists('Mage', 'getEdition')) {
+                $magentoEdition = sprintf("%s ", Mage::getEdition());
+            }
+            $this->_printMessage(sprintf('%s %s', $magentoEdition, Mage::getVersion()));
         } catch (Exception $e) {
             $this->_printMessage($e->getMessage(), true);
         }
