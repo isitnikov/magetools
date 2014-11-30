@@ -8,6 +8,9 @@ class Magetools_Cache_Clean extends Magetools_Cache_Abstract
     {
         if ($this->_getOpt('all', false)) {
             Mage::app()->cleanCache();
+            Mage::dispatchEvent('adminhtml_cache_flush_system');
+            Mage::dispatchEvent('adminhtml_cache_flush_all');
+            Mage::app()->getCacheInstance()->flush();
             $this->_printMessage('All types of cache were cleaned.');
         } else {
             $type = $this->_getOpt('type', false);
@@ -49,10 +52,10 @@ class Magetools_Cache_Clean extends Magetools_Cache_Abstract
             }
 
             if ($clean) {
-                /**
-                 * @TODO why it don't work?
-                 */
-                Mage::app()->cleanCache($clean);
+                foreach ($clean as $type) {
+                    $tags = Mage::app()->getCacheInstance()->cleanType($type);
+                    Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => $type));
+                }
                 $this->_printMessage(sprintf(
                     'Following cache types "%s" were cleaned.',
                     implode('", "', array_values($clean))
