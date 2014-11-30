@@ -53,7 +53,7 @@ class Magetools_Cache_Clean extends Magetools_Cache_Abstract
 
             if ($clean) {
                 foreach ($clean as $type) {
-                    $tags = Mage::app()->getCacheInstance()->cleanType($type);
+                    Mage::app()->getCacheInstance()->cleanType($type);
                     Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => $type));
                 }
                 $this->_printMessage(sprintf(
