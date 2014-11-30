@@ -2,8 +2,6 @@
 
 class Magetools_Indexphp_Profiler_Disable extends Magetools_Indexphp_Abstract
 {
-    protected $_scriptName = 'magedisprof.php';
-
     protected function _changeFileContents(&$contents)
     {
         $patterns = array(

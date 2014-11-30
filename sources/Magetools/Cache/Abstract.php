@@ -3,14 +3,17 @@
 abstract class Magetools_Cache_Abstract extends Magetools_Abstract
 {
     protected $_opts = 'hat:';
+
     protected $_longOpts = array(
         'help', 'all', 'type:'
     );
+
     protected $_optsMap = array(
         'help'   => 'h',
         'all'    => 'a',
         'type'   => 't'
     );
+
     protected $_choiceNumbers = array();
 
     public function run()
@@ -96,7 +99,8 @@ abstract class Magetools_Cache_Abstract extends Magetools_Abstract
         }
     }
 
-    protected function _filterChoice($var) {
+    protected function _filterChoice($var)
+    {
         if (!isset($this->_choiceNumbers[$var])) {
             $this->_printMessage(sprintf('Choice "%d" was ignored, because not found among provided.', $var));
             return false;

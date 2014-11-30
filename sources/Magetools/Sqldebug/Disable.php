@@ -2,8 +2,6 @@
 
 class Magetools_Sqldebug_Disable extends Magetools_Sqldebug_Abstract
 {
-    protected $_scriptName = 'magedissqldebug.php';
-
     protected function _changeFileContents(&$contents)
     {
         $config = array(

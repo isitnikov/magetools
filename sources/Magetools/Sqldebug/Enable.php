@@ -8,8 +8,6 @@ class Magetools_Sqldebug_Enable extends Magetools_Sqldebug_Abstract
         'help', 'disable-trace', 'disable-query'
     );
 
-    protected $_scriptName = 'mageensqldebug.php';
-
     protected $_optsMap = array(
         'help' => 'h',
         'disable-trace' => 't',

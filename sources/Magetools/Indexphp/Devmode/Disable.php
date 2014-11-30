@@ -2,8 +2,6 @@
 
 class Magetools_Indexphp_Devmode_Disable extends Magetools_Indexphp_Abstract
 {
-    protected $_scriptName = 'magedisdevmode.php';
-
     protected function _changeFileContents(&$contents)
     {
         $patterns = array(

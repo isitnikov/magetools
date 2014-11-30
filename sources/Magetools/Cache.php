@@ -3,12 +3,15 @@
 class Magetools_Cache extends Magetools_Cache_Abstract
 {
     protected $_opts = 'h';
+
     protected $_longOpts = array(
         'help'
     );
+
     protected $_optsMap = array(
         'help' => 'h'
     );
+
     protected function _process()
     {
         $str = PHP_EOL;

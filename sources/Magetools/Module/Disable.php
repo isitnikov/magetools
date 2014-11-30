@@ -2,8 +2,6 @@
 
 class Magetools_Module_Disable extends Magetools_Module_Abstract
 {
-    protected $_scriptName = 'magedismod.php';
-
     protected function _process()
     {
         $force = $this->_getOpt('force');

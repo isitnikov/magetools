@@ -2,8 +2,6 @@
 
 class Magetools_Version extends Magetools_Abstract
 {
-    protected $_scriptName = 'mageversion.php';
-
     public function run()
     {
         try {

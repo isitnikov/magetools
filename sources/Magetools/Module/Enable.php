@@ -2,8 +2,6 @@
 
 class Magetools_Module_Enable extends Magetools_Module_Abstract
 {
-    protected $_scriptName = 'mageenmod.php';
-
     protected function _process()
     {
         $force = $this->_getOpt('force');

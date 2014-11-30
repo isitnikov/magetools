@@ -3,6 +3,7 @@
 class Magetools_Module_Tree extends Magetools_Module_Abstract
 {
     protected $_opts = 'ham:';
+
     protected $_longOpts = array(
         'help', 'all', 'module:'
     );
@@ -11,7 +12,6 @@ class Magetools_Module_Tree extends Magetools_Module_Abstract
         'all'    => 'a',
         'module' => 'm'
     );
-    protected $_scriptName = 'magemodtree.php';
 
     protected function _initModule()
     {

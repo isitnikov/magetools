@@ -1,7 +1,7 @@
 <?php
 
-abstract class Magetools_Sqldebug_Abstract extends Magetools_Abstract {
-
+abstract class Magetools_Sqldebug_Abstract extends Magetools_Abstract
+{
     public function run()
     {
         try {

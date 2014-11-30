@@ -1,11 +1,14 @@
 <?php
 
-abstract class Magetools_Module_Abstract extends Magetools_Abstract {
+abstract class Magetools_Module_Abstract extends Magetools_Abstract
+{
 
     protected $_opts = 'hfm:';
+
     protected $_longOpts = array(
         'help', 'force', 'module:'
     );
+
     protected $_optsMap = array(
         'help'   => 'h',
         'force'  => 'f',
@@ -15,9 +18,12 @@ abstract class Magetools_Module_Abstract extends Magetools_Abstract {
     protected $_dependencies;
 
     protected $_moduleName;
+
     protected $_modulePath;
+
     /** @var null|SimpleXMLElement */
     protected $_moduleXml;
+
     protected $_moduleStatus;
 
     public function __construct()

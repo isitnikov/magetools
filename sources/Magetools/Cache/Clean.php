@@ -63,14 +63,6 @@ class Magetools_Cache_Clean extends Magetools_Cache_Abstract
         }
     }
 
-    protected function _filterChoice($var) {
-        if (!isset($this->_choiceNumbers[$var])) {
-            $this->_printMessage(sprintf('Choice "%d" was ignored, because not found among provided.', $var));
-            return false;
-        }
-        return true;
-    }
-
     protected function _usageHelp()
     {
         return <<<USAGE

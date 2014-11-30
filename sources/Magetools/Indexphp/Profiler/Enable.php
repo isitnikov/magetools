@@ -3,10 +3,10 @@
 class Magetools_EnableProfiler extends Magetools_IndexPhp_Abstract
 {
     protected $_opts = 'h';
+
     protected $_longOpts = array(
         'help', 'ips:'
     );
-    protected $_scriptName = 'mageenprof.php';
 
     protected function _changeFileContents(&$contents)
     {

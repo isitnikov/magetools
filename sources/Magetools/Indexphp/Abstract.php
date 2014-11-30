@@ -1,7 +1,7 @@
 <?php
 
-abstract class Magetools_Indexphp_Abstract extends Magetools_Abstract {
-
+abstract class Magetools_Indexphp_Abstract extends Magetools_Abstract
+{
     protected $_opts = 'hi:';
 
     protected $_longOpts = array(

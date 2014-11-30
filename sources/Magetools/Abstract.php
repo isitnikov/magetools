@@ -14,8 +14,6 @@ abstract class Magetools_Abstract
 
     protected $_mageDir = array();
 
-    protected $_scriptName = 'abstract.php';
-
     protected $_colors = array(
         'black'        => '0;30',
         'dark_gray'    => '1;30',
@@ -139,12 +137,25 @@ USAGE;
 
     abstract public function run();
 
+    protected function _getScriptName() {
+        if (!$this->_scriptName) {
+            foreach (array('SCRIPT_NAME', 'SCRIPT_FILENAME', 'PHP_SELF', 'PATH_TRANSLATED') as $name) {
+                if (isset($_SERVER[$name])) {
+                    $this->_scriptName = basename($_SERVER[$name]);
+                    break;
+                }
+            }
+        }
+
+        return $this->_scriptName;
+    }
+
     protected function _printMessage ($message, $die = false)
     {
         if ($die) {
-            die($this->_scriptName . ': ' . $message . PHP_EOL);
+            die($this->_getScriptName() . ': ' . $message . PHP_EOL);
         } else {
-            echo $this->_scriptName . ': ' . $message . PHP_EOL;
+            echo $this->_getScriptName() . ': ' . $message . PHP_EOL;
         }
     }
 
