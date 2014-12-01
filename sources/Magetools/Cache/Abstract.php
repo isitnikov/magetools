@@ -48,12 +48,14 @@ abstract class Magetools_Cache_Abstract extends Magetools_Abstract
         } else {
             $type = $this->_getOpt('type', false);
 
+            $usedTypes = array();
             $clean = Mage::app()->useCache();
             if ($type) {
                 if (!isset($cacheTypes[$type])) {
                     throw new Exception(sprintf('Unknown type of cache: %s', $type));
                 }
                 $clean[$type] = (int)$status;
+                $usedTypes[] = $type;
             } else {
                 $str = PHP_EOL;
                 $str .= 'You don\'t set any specific params. Please, select one or few (by comma ",")'
@@ -83,6 +85,7 @@ abstract class Magetools_Cache_Abstract extends Magetools_Abstract
                 $choice = array_filter(explode(',', $choice), array($this, '_filterChoice'));
                 foreach ($choice as $key) {
                     $clean[$this->_choiceNumbers[$key]] = (int)$status;
+                    $usedTypes[] = $this->_choiceNumbers[$key];
                 }
             }
 
@@ -90,7 +93,7 @@ abstract class Magetools_Cache_Abstract extends Magetools_Abstract
                 Mage::app()->saveUseCache($clean);
                 $this->_printMessage(sprintf(
                     'Following cache types "%s" were %s.',
-                    implode('", "', array_keys($clean)),
+                    implode('", "', $usedTypes),
                     $status ? 'enabled' : 'disabled'
                 ));
             } else {
