@@ -37,6 +37,8 @@ abstract class Magetools_Abstract
 
     protected $_version = '1.0.0.0';
 
+    protected $_scriptName;-
+
     protected function _getOptions()
     {
         if (!$this->_options) {
